@@ -1,0 +1,305 @@
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 09/27/22 07:46:06 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+      Laboratorio 3- MOS
+      Ejercicio 1
+       
+      Realizado por:
+      Juan Andrés Romero C - 202013449
+      Juan Sebastián Alegría - 202011282
+   9   
+  10  Sets i 'Players' /i1*i7/
+  11      rolePerformance 'Role performance' /BallControl, Shooting, Rebounds, Defense/
+  12      position 'Available positions' /Attack, Center, Defense/;
+  13   
+  14  Table Performance(i, rolePerformance)
+  15      BallControl Shooting Rebounds Defense
+  16  i1  3           3        1        3
+  17  i2  2           1        3        2
+  18  i3  2           3        2        2
+  19  i4  1           3        3        1
+  20  i5  3           3        3        3
+  21  i6  3           1        2        3
+  22  i7  3           2        2        1;
+  23   
+  24  Parameter positions(i, position);
+  25  positions('i1', 'Attack') = 1;
+  26  positions('i2', 'Center') = 1;
+  27  positions('i3', 'Attack') = 1;
+  28  positions('i3', 'Defense') = 1;
+  29  positions('i4', 'Center') = 1;
+  30  positions('i4', 'Defense') = 1;
+  31  positions('i5', 'Attack') = 1;
+  32  positions('i5', 'Defense') = 1;
+  33  positions('i6', 'Center') = 1;
+  34  positions('i6', 'Defense') = 1;
+  35  positions('i7', 'Defense') = 1;
+  36  positions('i7', 'Attack') = 1;
+  37   
+  38  Variables
+  39    x(i)      Indicates if said player is chosen.
+  40    z         Objective function;
+  41   
+  42  Binary Variable x;
+  43   
+  44  Equations
+  45  targetFunc                  target function
+  46  amountPlayers               amount of players
+  47  defenseConstraint           Defense position constraint
+  48  attackingConstraint         Attacking position constraint
+  49  centerConstraint            Center position constraint
+  50  ballControlConstraint       Ball control constraint
+  51  shootingConstraint          Shooting constraint
+  52  reboundsConstraint          Rebounds constraint
+  53  player2or3                  Player 2 or 3 chosen;
+  54   
+  55  targetFunc     ..  z =e= sum(i, x(i)*Performance(i, 'Defense'));
+  56  amountPlayers .. sum(i, x(i)) =e= 5;
+  57  defenseConstraint .. sum(i, x(i)*positions(i, 'Defense')) =g= 4;
+  58  attackingConstraint .. sum(i, x(i)*positions(i, 'Attack')) =g= 2;
+  59  centerConstraint .. sum(i, x(i)*positions(i, 'Center')) =g= 1;
+  60  ballControlConstraint .. sum(i, x(i)*Performance(i, 'BallControl'))/5 =g= 2;
+  61  shootingConstraint .. sum(i, x(i)*Performance(i, 'Shooting'))/5 =g= 2;
+  62  reboundsConstraint .. sum(i, x(i)*Performance(i, 'Rebounds'))/5 =g= 2;
+  63  player2or3 .. x('i2') + x('i3') =e= 1;
+  64   
+  65  Model Exercise1 /all/ ;
+  66  option mip=cplex
+  67  Solve Exercise1 using mip maximizing z;
+  68  Display x.l, z.l;
+  69   
+
+
+COMPILATION TIME     =        0.000 SECONDS      3 MB  40.3.0 f227c22a WEX-WEI
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 09/27/22 07:46:06 Page 2
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE Exercise1 Using MIP From line 67
+
+
+---- targetFunc  =E=  target function
+
+targetFunc..  - 3*x(i1) - 2*x(i2) - 2*x(i3) - x(i4) - 3*x(i5) - 3*x(i6) - x(i7) + z =E= 0 ; (LHS = 0)
+     
+
+---- amountPlayers  =E=  amount of players
+
+amountPlayers..  x(i1) + x(i2) + x(i3) + x(i4) + x(i5) + x(i6) + x(i7) =E= 5 ; (LHS = 0, INFES = 5 ****)
+     
+
+---- defenseConstraint  =G=  Defense position constraint
+
+defenseConstraint..  x(i3) + x(i4) + x(i5) + x(i6) + x(i7) =G= 4 ; (LHS = 0, INFES = 4 ****)
+     
+
+---- attackingConstraint  =G=  Attacking position constraint
+
+attackingConstraint..  x(i1) + x(i3) + x(i5) + x(i7) =G= 2 ; (LHS = 0, INFES = 2 ****)
+     
+
+---- centerConstraint  =G=  Center position constraint
+
+centerConstraint..  x(i2) + x(i4) + x(i6) =G= 1 ; (LHS = 0, INFES = 1 ****)
+     
+
+---- ballControlConstraint  =G=  Ball control constraint
+
+ballControlConstraint..  0.6*x(i1) + 0.4*x(i2) + 0.4*x(i3) + 0.2*x(i4) + 0.6*x(i5) + 0.6*x(i6) + 0.6*x(i7) =G= 2 ; (LHS = 0, INFES = 2 ****)
+     
+
+---- shootingConstraint  =G=  Shooting constraint
+
+shootingConstraint..  0.6*x(i1) + 0.2*x(i2) + 0.6*x(i3) + 0.6*x(i4) + 0.6*x(i5) + 0.2*x(i6) + 0.4*x(i7) =G= 2 ; (LHS = 0, INFES = 2 ****)
+     
+
+---- reboundsConstraint  =G=  Rebounds constraint
+
+reboundsConstraint..  0.2*x(i1) + 0.6*x(i2) + 0.4*x(i3) + 0.6*x(i4) + 0.6*x(i5) + 0.4*x(i6) + 0.4*x(i7) =G= 2 ; (LHS = 0, INFES = 2 ****)
+     
+
+---- player2or3  =E=  Player 2 or 3 chosen
+
+player2or3..  x(i2) + x(i3) =E= 1 ; (LHS = 0, INFES = 1 ****)
+     
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 09/27/22 07:46:06 Page 3
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE Exercise1 Using MIP From line 67
+
+
+---- x  Indicates if said player is chosen.
+
+x(i1)
+                (.LO, .L, .UP, .M = 0, 0, 1, 0)
+       -3       targetFunc
+        1       amountPlayers
+        1       attackingConstraint
+        0.6     ballControlConstraint
+        0.6     shootingConstraint
+        0.2     reboundsConstraint
+
+x(i2)
+                (.LO, .L, .UP, .M = 0, 0, 1, 0)
+       -2       targetFunc
+        1       amountPlayers
+        1       centerConstraint
+        0.4     ballControlConstraint
+        0.2     shootingConstraint
+        0.6     reboundsConstraint
+        1       player2or3
+
+x(i3)
+                (.LO, .L, .UP, .M = 0, 0, 1, 0)
+       -2       targetFunc
+        1       amountPlayers
+        1       defenseConstraint
+        1       attackingConstraint
+        0.4     ballControlConstraint
+        0.6     shootingConstraint
+        0.4     reboundsConstraint
+        1       player2or3
+
+REMAINING 4 ENTRIES SKIPPED
+
+---- z  Objective function
+
+z
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       targetFunc
+
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 09/27/22 07:46:06 Page 4
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE Exercise1 Using MIP From line 67
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 1.000E+00, 5.000E+00] - Zero values observed as well
+Bound     [min, max] : [ 1.000E+00, 1.000E+00] - Zero values observed as well
+Matrix    [min, max] : [ 2.000E-01, 3.000E+00]
+
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 09/27/22 07:46:06 Page 5
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE Exercise1 Using MIP From line 67
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           9     SINGLE EQUATIONS            9
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES            8
+NON ZERO ELEMENTS            50     DISCRETE VARIABLES          7
+
+
+GENERATION TIME      =        0.016 SECONDS      4 MB  40.3.0 f227c22a WEX-WEI
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 09/27/22 07:46:06 Page 6
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE Exercise1 Using MIP From line 67
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   Exercise1           OBJECTIVE  z
+     TYPE    MIP                 DIRECTION  MAXIMIZE
+     SOLVER  CPLEX               FROM LINE  67
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      1 Optimal
+**** OBJECTIVE VALUE               12.0000
+
+ RESOURCE USAGE, LIMIT          0.063 10000000000.000
+ ITERATION COUNT, LIMIT         0    2147483647
+--- *** This solver runs with a demo license. No commercial use.
+--- GMO setup time: 0.00s
+--- GMO memory 0.50 Mb (peak 0.50 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.00 Mb (peak 0.00 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 0.00sec (det. 0.03 ticks)
+
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.03sec (det. 0.01 ticks)
+
+
+Proven optimal solution
+MIP Solution:           12.000000    (0 iterations, 0 nodes)
+Final Solve:            12.000000    (0 iterations)
+
+Best possible:          12.000000
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU targetFunc          .              .              .             1.0000      
+---- EQU amountPla~         5.0000         5.0000         5.0000          .          
+---- EQU defenseCo~         4.0000         4.0000        +INF             .          
+---- EQU attacking~         2.0000         3.0000        +INF             .          
+---- EQU centerCon~         1.0000         2.0000        +INF             .          
+---- EQU ballContr~         2.0000         2.4000        +INF             .          
+---- EQU shootingC~         2.0000         2.6000        +INF             .          
+---- EQU reboundsC~         2.0000         2.2000        +INF             .          
+---- EQU player2or3         1.0000         1.0000         1.0000          .          
+
+  targetFunc  target function
+  amountPlayers  amount of players
+  defenseConstraint  Defense position constraint
+  attackingConstraint  Attacking position constraint
+  centerConstraint  Center position constraint
+  ballControlConstraint  Ball control constraint
+  shootingConstraint  Shooting constraint
+  reboundsConstraint  Rebounds constraint
+  player2or3  Player 2 or 3 chosen
+
+---- VAR x  Indicates if said player is chosen.
+
+          LOWER          LEVEL          UPPER         MARGINAL
+
+i1          .             1.0000         1.0000         3.0000      
+i2          .              .             1.0000         2.0000      
+i3          .             1.0000         1.0000         2.0000      
+i4          .             1.0000         1.0000         1.0000      
+i5          .             1.0000         1.0000         3.0000      
+i6          .             1.0000         1.0000         3.0000      
+i7          .              .             1.0000         1.0000      
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR z                 -INF           12.0000        +INF             .          
+
+  z  Objective function
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 09/27/22 07:46:06 Page 7
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+E x e c u t i o n
+
+
+----     68 VARIABLE x.L  Indicates if said player is chosen.
+
+i1 1.000,    i3 1.000,    i4 1.000,    i5 1.000,    i6 1.000
+
+
+----     68 VARIABLE z.L                   =       12.000  Objective function
+
+
+EXECUTION TIME       =        0.125 SECONDS      4 MB  40.3.0 f227c22a WEX-WEI
+
+
+USER: GAMS Demo license for Juan Romero              G220823|0002CO-GEN
+      University of Los Andes, Colombia                        DL072145
+
+
+**** FILE SUMMARY
+
+Input      C:\Users\ElRey\Documents\Scripts\GAMS\Laboratory 03\Exercise1.gms
+Output     C:\Users\ElRey\Documents\Scripts\GAMS\Laboratory 03\Exercise1.lst
