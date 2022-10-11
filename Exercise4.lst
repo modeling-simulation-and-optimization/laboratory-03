@@ -1,0 +1,254 @@
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 11:01:25 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+      Laboratorio 3- MOS
+      Ejercicio 4
+       
+      Realizado por:
+      Juan Andrés Romero C - 202013449
+      Juan Sebastián Alegría - 202011282
+   9   
+  10  Sets t 'Tile set' /t1*t20/
+  11       p 'Pipe Types' /p1*p7/;
+  12   
+  13  Parameter hasPipe(t,p) 'Establishes if said tile has or not a pipe';
+  14   
+  15  hasPipe('t1', 'p1') = 1;
+  16  hasPipe('t5', 'p1') = 1;
+  17   
+  18  hasPipe('t5', 'p2') = 1;
+  19  hasPipe('t9', 'p2') = 1;
+  20   
+  21  hasPipe('t9', 'p3') = 1;
+  22  hasPipe('t10', 'p3') = 1;
+  23  hasPipe('t13', 'p3') = 1;
+  24  hasPipe('t14', 'p3') = 1;
+  25   
+  26  hasPipe('t13', 'p4') = 1;
+  27  hasPipe('t17', 'p4') = 1;
+  28   
+  29  hasPipe('t2', 'p5') = 1;
+  30  hasPipe('t3', 'p5') = 1;
+  31  hasPipe('t6', 'p5') = 1;
+  32  hasPipe('t7', 'p5') = 1;
+  33   
+  34  hasPipe('t10', 'p6') = 1;
+  35  hasPipe('t11', 'p6') = 1;
+  36  hasPipe('t14', 'p6') = 1;
+  37  hasPipe('t15', 'p6') = 1;
+  38   
+  39  hasPipe('t8', 'p7') = 1;
+  40  hasPipe('t12', 'p7') = 1;
+  41  hasPipe('t16', 'p7') = 1;
+  42  hasPipe('t20', 'p7') = 1;
+  43  hasPipe('t19', 'p7') = 1;
+  44   
+  45  Variables x(t) 'Node selected'
+  46            z    'Target function';
+  47   
+  48  Equations targetFunc  'Target Function'
+  49            minTiles(p);
+  50   
+  51  targetFunc .. z =e= sum(t, x(t));
+  52  minTiles(p) .. sum(t, x(t)*hasPipe(t,p)) =g= 1;
+  53   
+  54  Model Exercise4 /all/ ;
+  55  option mip=cplex
+  56  Solve Exercise4 using mip minimizing z;
+  57  Display x.l;
+  58  Display z.l;
+
+
+COMPILATION TIME     =        0.000 SECONDS      3 MB  40.3.0 f227c22a WEX-WEI
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 11:01:25 Page 2
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE Exercise4 Using MIP From line 56
+
+
+---- targetFunc  =E=  Target Function
+
+targetFunc..  - x(t1) - x(t2) - x(t3) - x(t4) - x(t5) - x(t6) - x(t7) - x(t8) - x(t9) - x(t10) - x(t11) - x(t12) - x(t13) - x(t14) - x(t15) - x(t16) - x(t17) - x(t18) - x(t19) - x(t20) + z =E= 0 ; (LHS = 0)
+     
+
+---- minTiles  =G=  
+
+minTiles(p1)..  x(t1) + x(t5) =G= 1 ; (LHS = 0, INFES = 1 ****)
+     
+minTiles(p2)..  x(t5) + x(t9) =G= 1 ; (LHS = 0, INFES = 1 ****)
+     
+minTiles(p3)..  x(t9) + x(t10) + x(t13) + x(t14) =G= 1 ; (LHS = 0, INFES = 1 ****)
+     
+REMAINING 4 ENTRIES SKIPPED
+
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 11:01:25 Page 3
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE Exercise4 Using MIP From line 56
+
+
+---- x  Node selected
+
+x(t1)
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+       -1       targetFunc
+        1       minTiles(p1)
+
+x(t2)
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+       -1       targetFunc
+        1       minTiles(p5)
+
+x(t3)
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+       -1       targetFunc
+        1       minTiles(p5)
+
+REMAINING 17 ENTRIES SKIPPED
+
+---- z  Target function
+
+z
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       targetFunc
+
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 11:01:25 Page 4
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE Exercise4 Using MIP From line 56
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 1.000E+00, 1.000E+00] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA]
+Matrix    [min, max] : [ 1.000E+00, 1.000E+00]
+
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 11:01:25 Page 5
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE Exercise4 Using MIP From line 56
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           2     SINGLE EQUATIONS            8
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES           21
+NON ZERO ELEMENTS            44
+
+
+GENERATION TIME      =        0.000 SECONDS      4 MB  40.3.0 f227c22a WEX-WEI
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 11:01:25 Page 6
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE Exercise4 Using MIP From line 56
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   Exercise4           OBJECTIVE  z
+     TYPE    MIP                 DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  56
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      3 Unbounded
+**** OBJECTIVE VALUE                5.0000
+
+ RESOURCE USAGE, LIMIT          0.000 10000000000.000
+ ITERATION COUNT, LIMIT         7    2147483647
+--- *** This solver runs with a demo license. No commercial use.
+--- GMO setup time: 0.00s
+--- GMO memory 0.50 Mb (peak 0.50 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.00 Mb (peak 0.00 Mb)
+--- Starting Cplex
+
+
+--- LP status (4): unbounded or infeasible.
+--- Cplex Time: 0.00sec (det. 0.00 ticks)
+
+*** WARNING: Presolve found the problem infeasible or unbounded
+--- Rerunning with presolve turned off and solving with LPMETHOD=1.
+
+
+--- LP status (2): unbounded.
+--- Cplex Time: 0.00sec (det. 0.01 ticks)
+
+
+Model has an unbounded ray
+
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU targetFunc          .              .              .             1.0000      
+
+  targetFunc  Target Function
+
+---- EQU minTiles  
+
+          LOWER          LEVEL          UPPER         MARGINAL
+
+p1         1.0000         1.0000        +INF            EPS         
+p2         1.0000         1.0000        +INF            1.0000      
+p3         1.0000         1.0000        +INF            EPS         
+p4         1.0000         1.0000        +INF            1.0000      
+p5         1.0000         1.0000        +INF            1.0000      
+p6         1.0000         1.0000        +INF            1.0000      
+p7         1.0000         1.0000        +INF            1.0000      
+
+---- VAR x  Node selected
+
+           LOWER          LEVEL          UPPER         MARGINAL
+
+t1         -INF             .            +INF            1.0000 UNBND
+t2         -INF             .            +INF            EPS         
+t3         -INF            1.0000        +INF             .          
+t4         -INF             .            +INF            1.0000      
+t5         -INF            1.0000        +INF             .          
+t6         -INF             .            +INF            EPS         
+t7         -INF             .            +INF            EPS         
+t8         -INF            1.0000        +INF             .          
+t9         -INF             .            +INF             .          
+t10        -INF             .            +INF            EPS         
+t11        -INF            1.0000        +INF             .          
+t12        -INF             .            +INF            EPS         
+t13        -INF            1.0000        +INF             .          
+t14        -INF             .            +INF             .          
+t15        -INF             .            +INF            EPS         
+t16        -INF             .            +INF            EPS         
+t17        -INF             .            +INF            EPS         
+t18        -INF             .            +INF            1.0000      
+t19        -INF             .            +INF            EPS         
+t20        -INF             .            +INF            EPS         
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR z                 -INF            5.0000        +INF             .          
+
+  z  Target function
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             1  UNBOUNDED (UNBND)
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 11:01:25 Page 7
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+E x e c u t i o n
+
+
+----     57 VARIABLE x.L  Node selected
+
+t3  1.000,    t5  1.000,    t8  1.000,    t11 1.000,    t13 1.000
+
+
+----     58 VARIABLE z.L                   =        5.000  Target function
+
+
+EXECUTION TIME       =        0.062 SECONDS      4 MB  40.3.0 f227c22a WEX-WEI
+
+
+USER: GAMS Demo license for Juan Romero              G220823|0002CO-GEN
+      University of Los Andes, Colombia                        DL072145
+
+
+**** FILE SUMMARY
+
+Input      C:\Users\ElRey\Documents\Scripts\GAMS\laboratory-03\Exercise4.gms
+Output     C:\Users\ElRey\Documents\Scripts\GAMS\laboratory-03\Exercise4.lst

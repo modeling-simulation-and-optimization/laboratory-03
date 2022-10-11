@@ -1,4 +1,4 @@
-GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 10:16:21 Page 1
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 10:42:49 Page 1
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 C o m p i l a t i o n
 
@@ -51,7 +51,7 @@ C o m p i l a t i o n
   48  minBluesB       .. sum(i, b(i)*songGenres(i,'BluesRock')) =e= 2;
   49  minRockNRoll    .. sum(i, a(i)*songGenres(i,'RockAndRoll')) =g= 3;
   50  conditionalX    .. 1-a('i1') =g= a('i5');
-  51  conditionalY    .. a('i2') + a('i4') =g= b('i1')+1;
+  51  conditionalY    .. a('i2') + a('i4') =l= b('i1')+1;
   52   
   53  Model Exercise3 /all/ ;
   54  option mip=cplex
@@ -61,7 +61,7 @@ C o m p i l a t i o n
 
 
 COMPILATION TIME     =        0.000 SECONDS      3 MB  40.3.0 f227c22a WEX-WEI
-GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 10:16:21 Page 2
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 10:42:49 Page 2
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Equation Listing    SOLVE Exercise3 Using MIP From line 55
 
@@ -111,11 +111,11 @@ minRockNRoll..  a(i2) + a(i4) + a(i6) + a(i8) =G= 3 ; (LHS = 0, INFES = 3 ****)
 conditionalX..  - a(i1) - a(i5) =G= -1 ; (LHS = 0)
      
 
----- conditionalY  =G=  
+---- conditionalY  =L=  
 
-conditionalY..  a(i2) + a(i4) - b(i1) =G= 1 ; (LHS = 0, INFES = 1 ****)
+conditionalY..  a(i2) + a(i4) - b(i1) =L= 1 ; (LHS = 0)
      
-GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 10:16:21 Page 3
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 10:42:49 Page 3
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Column Listing      SOLVE Exercise3 Using MIP From line 55
 
@@ -178,7 +178,7 @@ z
                 (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
         1       targetFunc
 
-GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 10:16:21 Page 4
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 10:42:49 Page 4
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Range Statistics    SOLVE Exercise3 Using MIP From line 55
 
@@ -189,7 +189,7 @@ RHS       [min, max] : [ 1.000E+00, 1.600E+01] - Zero values observed as well
 Bound     [min, max] : [ 1.000E+00, 1.000E+00] - Zero values observed as well
 Matrix    [min, max] : [ 1.000E+00, 5.000E+00]
 
-GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 10:16:21 Page 5
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 10:42:49 Page 5
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Model Statistics    SOLVE Exercise3 Using MIP From line 55
 
@@ -201,8 +201,8 @@ BLOCKS OF VARIABLES           3     SINGLE VARIABLES           17
 NON ZERO ELEMENTS            66     DISCRETE VARIABLES         16
 
 
-GENERATION TIME      =        0.125 SECONDS      4 MB  40.3.0 f227c22a WEX-WEI
-GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 10:16:21 Page 6
+GENERATION TIME      =        0.000 SECONDS      4 MB  40.3.0 f227c22a WEX-WEI
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 10:42:49 Page 6
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Solution Report     SOLVE Exercise3 Using MIP From line 55
 
@@ -217,7 +217,7 @@ Solution Report     SOLVE Exercise3 Using MIP From line 55
 **** MODEL STATUS      1 Optimal
 **** OBJECTIVE VALUE                8.0000
 
- RESOURCE USAGE, LIMIT          0.047 10000000000.000
+ RESOURCE USAGE, LIMIT          0.016 10000000000.000
  ITERATION COUNT, LIMIT         0    2147483647
 --- *** This solver runs with a demo license. No commercial use.
 --- GMO setup time: 0.00s
@@ -228,7 +228,7 @@ Solution Report     SOLVE Exercise3 Using MIP From line 55
 
 
 --- MIP status (101): integer optimal solution.
---- Cplex Time: 0.02sec (det. 0.05 ticks)
+--- Cplex Time: 0.00sec (det. 0.05 ticks)
 
 --- Fixing integer variables and solving final LP...
 
@@ -257,7 +257,7 @@ Relative gap:            0.000000
 ---- EQU minBluesB          2.0000         2.0000         2.0000          .          
 ---- EQU minRockNR~         3.0000         3.0000        +INF             .          
 ---- EQU condition~        -1.0000          .            +INF             .          
----- EQU condition~         1.0000         1.0000        +INF             .          
+---- EQU condition~        -INF             .             1.0000          .          
 
 ---- VAR a  Song selected (Side A)
 
@@ -276,11 +276,11 @@ i8          .             1.0000         1.0000         1.0000
 
           LOWER          LEVEL          UPPER         MARGINAL
 
-i1          .              .             1.0000         1.0000      
+i1          .             1.0000         1.0000         1.0000      
 i2          .             1.0000         1.0000         1.0000      
 i3          .             1.0000         1.0000         1.0000      
 i4          .             1.0000         1.0000         1.0000      
-i5          .             1.0000         1.0000         1.0000      
+i5          .              .             1.0000         1.0000      
 i6          .              .             1.0000         1.0000      
 i7          .              .             1.0000         1.0000      
 i8          .              .             1.0000         1.0000      
@@ -295,7 +295,7 @@ i8          .              .             1.0000         1.0000
 **** REPORT SUMMARY :        0     NONOPT
                              0 INFEASIBLE
                              0  UNBOUNDED
-GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 10:16:21 Page 7
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 10:42:49 Page 7
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 E x e c u t i o n
 
@@ -307,11 +307,11 @@ i2 1.000,    i3 1.000,    i6 1.000,    i8 1.000
 
 ----     57 VARIABLE b.L  Song selected (Side B)
 
-i2 1.000,    i3 1.000,    i4 1.000,    i5 1.000
+i1 1.000,    i2 1.000,    i3 1.000,    i4 1.000
 
 
 
-EXECUTION TIME       =        0.312 SECONDS      4 MB  40.3.0 f227c22a WEX-WEI
+EXECUTION TIME       =        0.047 SECONDS      4 MB  40.3.0 f227c22a WEX-WEI
 
 
 USER: GAMS Demo license for Juan Romero              G220823|0002CO-GEN

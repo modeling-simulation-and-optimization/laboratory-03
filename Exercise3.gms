@@ -48,7 +48,7 @@ minBluesA       .. sum(i, a(i)*songGenres(i,'BluesRock')) =e= 2;
 minBluesB       .. sum(i, b(i)*songGenres(i,'BluesRock')) =e= 2;
 minRockNRoll    .. sum(i, a(i)*songGenres(i,'RockAndRoll')) =g= 3;
 conditionalX    .. 1-a('i1') =g= a('i5');
-conditionalY    .. a('i2') + a('i4') =g= b('i1')+1;
+conditionalY    .. a('i2') + a('i4') =l= b('i1')+1;
 
 Model Exercise3 /all/ ;
 option mip=cplex
