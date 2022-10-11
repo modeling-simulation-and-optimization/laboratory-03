@@ -1,0 +1,275 @@
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 07:30:11 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+      Laboratorio 3- MOS
+      Ejercicio 2
+       
+      Realizado por:
+      Juan Andrés Romero C - 202013449
+      Juan Sebastián Alegría - 202011282
+   9   
+  10  Sets i 'Towns' /i1*i6/
+  11      alias(i,j);
+  12   
+  13  Parameter distance(i,j) 'Distance between towns';
+  14  distance('i1', 'i2') = 10;
+  15  distance('i1', 'i3') = 20;
+  16  distance('i1', 'i4') = 30;
+  17  distance('i1', 'i5') = 30;
+  18  distance('i1', 'i6') = 20;
+  19   
+  20  distance('i2', 'i3') = 25;
+  21  distance('i2', 'i4') = 35;
+  22  distance('i2', 'i5') = 20;
+  23  distance('i2', 'i6') = 10;
+  24   
+  25  distance('i3', 'i4') = 15;
+  26  distance('i3', 'i5') = 30;
+  27  distance('i3', 'i6') = 20;
+  28   
+  29  distance('i4', 'i5') = 15;
+  30  distance('i4', 'i6') = 25;
+  31   
+  32  distance('i5', 'i6') = 14;
+  33   
+  34  * Since it's an undirected graph there are bidirectional connections
+  35  loop((i,j),
+  36      if (distance(i,j) ne 0,
+  37         distance(j,i) = distance(i,j)
+  38      );
+  39  );
+  40   
+  41  loop((i,j),
+  42      if ((distance(i,j) le 15 and distance(i,j) ge 1) or (distance(j,i) le 15 and distance(j,i) ge 1),
+  43         distance(i,j) = 1;
+  44      else
+  45          distance(i,j) = 0;
+  46      );
+  47  );
+  48   
+  49  loop((i,j),
+  50      if (distance(i,j) ne 0,
+  51         distance(j,i) = distance(i,j)
+  52      );
+  53  );
+  54   
+  55  Display distance;
+  56   
+  57  Variables x(i) 'Node selected'
+  58            z    'Target function';
+  59   
+  60  Binary Variable x;
+  61   
+  62  Equations targetFunc  'Target Function'
+  63            minZones(i);
+  64   
+  65  targetFunc..  z =e= sum(i, x(i));
+  66  minZones(i) .. sum(j, x(j)*distance(i,j)) =g=1;
+  67   
+  68  Model Exercise2 /all/ ;
+  69  option mip=cplex
+  70  Solve Exercise2 using mip minimizing z;
+  71  Display x.l;
+  72  Display z.l;
+
+
+COMPILATION TIME     =        0.000 SECONDS      3 MB  40.3.0 f227c22a WEX-WEI
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 07:30:11 Page 2
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+E x e c u t i o n
+
+
+----     55 PARAMETER distance  Distance between towns
+
+            i1          i2          i3          i4          i5          i6
+
+i1                   1.000
+i2       1.000                                                       1.000
+i3                                           1.000
+i4                               1.000                   1.000
+i5                                           1.000                   1.000
+i6                   1.000                               1.000
+
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 07:30:11 Page 3
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE Exercise2 Using MIP From line 70
+
+
+---- targetFunc  =E=  Target Function
+
+targetFunc..  - x(i1) - x(i2) - x(i3) - x(i4) - x(i5) - x(i6) + z =E= 0 ; (LHS = 0)
+     
+
+---- minZones  =G=  
+
+minZones(i1)..  x(i2) =G= 1 ; (LHS = 0, INFES = 1 ****)
+     
+minZones(i2)..  x(i1) + x(i6) =G= 1 ; (LHS = 0, INFES = 1 ****)
+     
+minZones(i3)..  x(i4) =G= 1 ; (LHS = 0, INFES = 1 ****)
+     
+REMAINING 3 ENTRIES SKIPPED
+
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 07:30:11 Page 4
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE Exercise2 Using MIP From line 70
+
+
+---- x  Node selected
+
+x(i1)
+                (.LO, .L, .UP, .M = 0, 0, 1, 0)
+       -1       targetFunc
+        1       minZones(i2)
+
+x(i2)
+                (.LO, .L, .UP, .M = 0, 0, 1, 0)
+       -1       targetFunc
+        1       minZones(i1)
+        1       minZones(i6)
+
+x(i3)
+                (.LO, .L, .UP, .M = 0, 0, 1, 0)
+       -1       targetFunc
+        1       minZones(i4)
+
+REMAINING 3 ENTRIES SKIPPED
+
+---- z  Target function
+
+z
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       targetFunc
+
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 07:30:11 Page 5
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE Exercise2 Using MIP From line 70
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 1.000E+00, 1.000E+00] - Zero values observed as well
+Bound     [min, max] : [ 1.000E+00, 1.000E+00] - Zero values observed as well
+Matrix    [min, max] : [ 1.000E+00, 1.000E+00]
+
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 07:30:11 Page 6
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE Exercise2 Using MIP From line 70
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           2     SINGLE EQUATIONS            7
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES            7
+NON ZERO ELEMENTS            17     DISCRETE VARIABLES          6
+
+
+GENERATION TIME      =        0.016 SECONDS      4 MB  40.3.0 f227c22a WEX-WEI
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 07:30:11 Page 7
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE Exercise2 Using MIP From line 70
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   Exercise2           OBJECTIVE  z
+     TYPE    MIP                 DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  70
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      1 Optimal
+**** OBJECTIVE VALUE                4.0000
+
+ RESOURCE USAGE, LIMIT          0.000 10000000000.000
+ ITERATION COUNT, LIMIT         0    2147483647
+--- *** This solver runs with a demo license. No commercial use.
+--- GMO setup time: 0.00s
+--- GMO memory 0.50 Mb (peak 0.50 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.00 Mb (peak 0.00 Mb)
+--- Starting Cplex
+
+
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 0.00sec (det. 0.01 ticks)
+
+--- Fixing integer variables and solving final LP...
+
+
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 0.00 ticks)
+
+
+Proven optimal solution
+MIP Solution:            4.000000    (0 iterations, 0 nodes)
+Final Solve:             4.000000    (0 iterations)
+
+Best possible:           4.000000
+Absolute gap:            0.000000
+Relative gap:            0.000000
+
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU targetFunc          .              .              .             1.0000      
+
+  targetFunc  Target Function
+
+---- EQU minZones  
+
+          LOWER          LEVEL          UPPER         MARGINAL
+
+i1         1.0000         1.0000        +INF             .          
+i2         1.0000         1.0000        +INF             .          
+i3         1.0000         1.0000        +INF             .          
+i4         1.0000         1.0000        +INF             .          
+i5         1.0000         1.0000        +INF             .          
+i6         1.0000         1.0000        +INF             .          
+
+---- VAR x  Node selected
+
+          LOWER          LEVEL          UPPER         MARGINAL
+
+i1          .             1.0000         1.0000         1.0000      
+i2          .             1.0000         1.0000         1.0000      
+i3          .             1.0000         1.0000         1.0000      
+i4          .             1.0000         1.0000         1.0000      
+i5          .              .             1.0000         1.0000      
+i6          .              .             1.0000         1.0000      
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR z                 -INF            4.0000        +INF             .          
+
+  z  Target function
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 07:30:11 Page 8
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+E x e c u t i o n
+
+
+----     71 VARIABLE x.L  Node selected
+
+i1 1.000,    i2 1.000,    i3 1.000,    i4 1.000
+
+
+----     72 VARIABLE z.L                   =        4.000  Target function
+
+
+EXECUTION TIME       =        0.063 SECONDS      4 MB  40.3.0 f227c22a WEX-WEI
+
+
+USER: GAMS Demo license for Juan Romero              G220823|0002CO-GEN
+      University of Los Andes, Colombia                        DL072145
+
+
+**** FILE SUMMARY
+
+Input      C:\Users\ElRey\Documents\Scripts\GAMS\laboratory-03\Exercise2.gms
+Output     C:\Users\ElRey\Documents\Scripts\GAMS\laboratory-03\Exercise2.lst
