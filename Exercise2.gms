@@ -1,5 +1,5 @@
 $onText
-Laboratorio 3- MOS
+Laboratorio 3 - MOS
 Ejercicio 2
 
 Realizado por:
@@ -8,9 +8,10 @@ Juan Sebastián Alegría - 202011282
 $offText
 
 Sets i 'Towns' /i1*i6/
-    alias(i,j);
+     alias(i,j);
 
 Parameter distance(i,j) 'Distance between towns';
+
 distance('i1', 'i2') = 10;
 distance('i1', 'i3') = 20;
 distance('i1', 'i4') = 30;
@@ -60,13 +61,13 @@ Variables x(i) 'Node selected'
 Binary Variable x;
 
 Equations targetFunc  'Target Function'
-          minZones(i);
+          minZones(i) 'Fire department coverage constraint';
 
 targetFunc..  z =e= sum(i, x(i));
-minZones(i) .. sum(j, x(j)*distance(i,j)) =g=1;
+minZones(i).. sum(j, x(j)*distance(i,j)) =g=1;
 
-Model Exercise2 /all/ ;
+Model exercise2 /all/;
 option mip=cplex
-Solve Exercise2 using mip minimizing z;
+Solve exercise2 using mip minimizing z;
 Display x.l;
 Display z.l;

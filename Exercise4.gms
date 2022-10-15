@@ -1,5 +1,5 @@
 $onText
-Laboratorio 3- MOS
+Laboratorio 3 - MOS
 Ejercicio 4
 
 Realizado por:
@@ -46,13 +46,13 @@ Variables x(t) 'Node selected'
           z    'Target function';
           
 Equations targetFunc  'Target Function'
-          minTiles(p);
+          minTiles(p) 'Pipe coverage constraint';
 
-targetFunc .. z =e= sum(t, x(t));
-minTiles(p) .. sum(t, x(t)*hasPipe(t,p)) =g= 1;
+targetFunc..  z =e= sum(t, x(t));
+minTiles(p).. sum(t, x(t)*hasPipe(t,p)) =g= 1;
 
-Model Exercise4 /all/ ;
+Model exercise4 /all/;
 option mip=cplex
-Solve Exercise4 using mip minimizing z;
+Solve exercise4 using mip minimizing z;
 Display x.l;
 Display z.l;

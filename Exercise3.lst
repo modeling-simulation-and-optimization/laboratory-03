@@ -1,69 +1,71 @@
-GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 10:42:49 Page 1
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:19:09 Page 1
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 C o m p i l a t i o n
 
 
-      Laboratorio 3- MOS
+      Laboratorio 3 - MOS
       Ejercicio 3
        
       Realizado por:
       Juan Andrés Romero C - 202013449
       Juan Sebastián Alegría - 202011282
    9   
-  10  Sets i 'Songs' /i1*i8/
+  10  Sets i     'Songs'       /i1*i8/
   11       genre 'Song genres' /BluesRock, RockAndRoll/;
   12   
   13  Parameter songGenres(i, genre);
-  14  songGenres('i1', 'BluesRock') = 1;
-  15  songGenres('i2', 'RockAndRoll') = 1;
-  16  songGenres('i3', 'BluesRock') = 1;
-  17  songGenres('i4', 'RockAndRoll') = 1;
-  18  songGenres('i5', 'BluesRock') = 1;
-  19  songGenres('i6', 'RockAndRoll') = 1;
-  20  songGenres('i8', 'RockAndRoll') = 1;
-  21  songGenres('i8', 'BluesRock') = 1;
-  22   
-  23  Parameter duration(i) 'Song durations' /i1 4, i2 5, i3 3, i4 2, i5 4, i6 3, i7 5, i8 4/;
-  24   
-  25  Variables a(i) 'Song selected (Side A)'
-  26            b(i) 'Song selected (Side B)'
-  27            z    'Target function';
-  28   
-  29  Binary Variables a,b;
-  30   
-  31  Equations targetFunc
-  32            minDurationAMax
-  33            minDurationAMin
-  34            minDurationBMax
-  35            minDurationBMin
-  36            minBluesA
-  37            minBluesB
-  38            minRockNRoll
-  39            conditionalX
-  40            conditionalY;
-  41   
-  42  targetFunc      .. z =e= sum(i, a(i)+b(i));
-  43  minDurationAMax .. sum(i, a(i)*duration(i)) =g= 14;
-  44  minDurationAMin .. sum(i, a(i)*duration(i)) =l= 16;
-  45  minDurationBMax .. sum(i, b(i)*duration(i)) =g= 14;
-  46  minDurationBMin .. sum(i, b(i)*duration(i)) =l= 14;
-  47  minBluesA       .. sum(i, a(i)*songGenres(i,'BluesRock')) =e= 2;
-  48  minBluesB       .. sum(i, b(i)*songGenres(i,'BluesRock')) =e= 2;
-  49  minRockNRoll    .. sum(i, a(i)*songGenres(i,'RockAndRoll')) =g= 3;
-  50  conditionalX    .. 1-a('i1') =g= a('i5');
-  51  conditionalY    .. a('i2') + a('i4') =l= b('i1')+1;
-  52   
-  53  Model Exercise3 /all/ ;
-  54  option mip=cplex
-  55  Solve Exercise3 using mip minimizing z;
-  56  Display a.l;
-  57  Display b.l;
+  14   
+  15  songGenres('i1', 'BluesRock') = 1;
+  16  songGenres('i2', 'RockAndRoll') = 1;
+  17  songGenres('i3', 'BluesRock') = 1;
+  18  songGenres('i4', 'RockAndRoll') = 1;
+  19  songGenres('i5', 'BluesRock') = 1;
+  20  songGenres('i6', 'RockAndRoll') = 1;
+  21  songGenres('i8', 'RockAndRoll') = 1;
+  22  songGenres('i8', 'BluesRock') = 1;
+  23   
+  24  Parameter duration(i) 'Song durations' /i1 4, i2 5, i3 3, i4 2, i5 4, i6 3, i7 5, i8 4/;
+  25   
+  26  Variables a(i) 'Song selected (Side A)'
+  27            b(i) 'Song selected (Side B)'
+  28            z    'Target function';
+  29   
+  30  Binary Variables a
+  31                   b;
+  32   
+  33  Equations targetFunc
+  34            minDurationAMax
+  35            minDurationAMin
+  36            minDurationBMax
+  37            minDurationBMin
+  38            minBluesA
+  39            minBluesB
+  40            minRockNRoll
+  41            conditionalX
+  42            conditionalY;
+  43   
+  44  targetFunc..      z =e= sum(i, a(i)+b(i));
+  45  minDurationAMax.. sum(i, a(i)*duration(i)) =g= 14;
+  46  minDurationAMin.. sum(i, a(i)*duration(i)) =l= 16;
+  47  minDurationBMax.. sum(i, b(i)*duration(i)) =g= 14;
+  48  minDurationBMin.. sum(i, b(i)*duration(i)) =l= 14;
+  49  minBluesA..       sum(i, a(i)*songGenres(i,'BluesRock')) =e= 2;
+  50  minBluesB..       sum(i, b(i)*songGenres(i,'BluesRock')) =e= 2;
+  51  minRockNRoll..    sum(i, a(i)*songGenres(i,'RockAndRoll')) =g= 3;
+  52  conditionalX..    1-a('i1') =g= a('i5');
+  53  conditionalY..    a('i2') + a('i4') =l= b('i1')+1;
+  54   
+  55  Model exercise3 /all/;
+  56  option mip=cplex
+  57  Solve exercise3 using mip minimizing z;
+  58  Display a.l;
+  59  Display b.l;
 
 
-COMPILATION TIME     =        0.000 SECONDS      3 MB  40.3.0 f227c22a WEX-WEI
-GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 10:42:49 Page 2
+COMPILATION TIME     =        0.003 SECONDS      3 MB  40.1.0 93c2a77b DEX-DEG
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:19:09 Page 2
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Equation Listing    SOLVE Exercise3 Using MIP From line 55
+Equation Listing    SOLVE exercise3 Using MIP From line 57
 
 
 ---- targetFunc  =E=  
@@ -115,9 +117,9 @@ conditionalX..  - a(i1) - a(i5) =G= -1 ; (LHS = 0)
 
 conditionalY..  a(i2) + a(i4) - b(i1) =L= 1 ; (LHS = 0)
      
-GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 10:42:49 Page 3
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:19:09 Page 3
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Column Listing      SOLVE Exercise3 Using MIP From line 55
+Column Listing      SOLVE exercise3 Using MIP From line 57
 
 
 ---- a  Song selected (Side A)
@@ -178,9 +180,9 @@ z
                 (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
         1       targetFunc
 
-GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 10:42:49 Page 4
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:19:09 Page 4
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Range Statistics    SOLVE Exercise3 Using MIP From line 55
+Range Statistics    SOLVE exercise3 Using MIP From line 57
 
 
 RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
@@ -189,9 +191,9 @@ RHS       [min, max] : [ 1.000E+00, 1.600E+01] - Zero values observed as well
 Bound     [min, max] : [ 1.000E+00, 1.000E+00] - Zero values observed as well
 Matrix    [min, max] : [ 1.000E+00, 5.000E+00]
 
-GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 10:42:49 Page 5
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:19:09 Page 5
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Model Statistics    SOLVE Exercise3 Using MIP From line 55
+Model Statistics    SOLVE exercise3 Using MIP From line 57
 
 
 MODEL STATISTICS
@@ -201,25 +203,25 @@ BLOCKS OF VARIABLES           3     SINGLE VARIABLES           17
 NON ZERO ELEMENTS            66     DISCRETE VARIABLES         16
 
 
-GENERATION TIME      =        0.000 SECONDS      4 MB  40.3.0 f227c22a WEX-WEI
-GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 10:42:49 Page 6
+GENERATION TIME      =        0.005 SECONDS      4 MB  40.1.0 93c2a77b DEX-DEG
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:19:09 Page 6
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Solution Report     SOLVE Exercise3 Using MIP From line 55
+Solution Report     SOLVE exercise3 Using MIP From line 57
 
 
                S O L V E      S U M M A R Y
 
-     MODEL   Exercise3           OBJECTIVE  z
+     MODEL   exercise3           OBJECTIVE  z
      TYPE    MIP                 DIRECTION  MINIMIZE
-     SOLVER  CPLEX               FROM LINE  55
+     SOLVER  CPLEX               FROM LINE  57
 
 **** SOLVER STATUS     1 Normal Completion
 **** MODEL STATUS      1 Optimal
 **** OBJECTIVE VALUE                8.0000
 
- RESOURCE USAGE, LIMIT          0.016 10000000000.000
+ RESOURCE USAGE, LIMIT          0.012 10000000000.000
  ITERATION COUNT, LIMIT         0    2147483647
---- *** This solver runs with a demo license. No commercial use.
+--- *** This solver runs with a community license. No commercial use.
 --- GMO setup time: 0.00s
 --- GMO memory 0.50 Mb (peak 0.50 Mb)
 --- Dictionary memory 0.00 Mb
@@ -295,30 +297,31 @@ i8          .              .             1.0000         1.0000
 **** REPORT SUMMARY :        0     NONOPT
                              0 INFEASIBLE
                              0  UNBOUNDED
-GAMS 40.3.0  f227c22a Sep 16, 2022          WEX-WEI x86 64bit/MS Windows - 10/11/22 10:42:49 Page 7
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:19:09 Page 7
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 E x e c u t i o n
 
 
-----     56 VARIABLE a.L  Song selected (Side A)
+----     58 VARIABLE a.L  Song selected (Side A)
 
 i2 1.000,    i3 1.000,    i6 1.000,    i8 1.000
 
 
-----     57 VARIABLE b.L  Song selected (Side B)
+----     59 VARIABLE b.L  Song selected (Side B)
 
 i1 1.000,    i2 1.000,    i3 1.000,    i4 1.000
 
 
 
-EXECUTION TIME       =        0.047 SECONDS      4 MB  40.3.0 f227c22a WEX-WEI
+EXECUTION TIME       =        0.042 SECONDS      4 MB  40.1.0 93c2a77b DEX-DEG
 
 
-USER: GAMS Demo license for Juan Romero              G220823|0002CO-GEN
-      University of Los Andes, Colombia                        DL072145
+USER: GAMS Community License for Juan Alegria        G220811|0002AO-GEN
+      Universidad de los Andes,                                  CL3634
+      License for teaching and research at degree granting institutions
 
 
 **** FILE SUMMARY
 
-Input      C:\Users\ElRey\Documents\Scripts\GAMS\laboratory-03\Exercise3.gms
-Output     C:\Users\ElRey\Documents\Scripts\GAMS\laboratory-03\Exercise3.lst
+Input      /Users/zejiran/hack/uniandes/MSO/laboratory-03/exercise3.gms
+Output     /Users/zejiran/hack/uniandes/MSO/laboratory-03/exercise3.lst
