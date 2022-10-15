@@ -1,4 +1,4 @@
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:54:56 Page 1
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 21:17:00 Page 1
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 C o m p i l a t i o n
 
@@ -11,7 +11,7 @@ C o m p i l a t i o n
       Juan Sebastián Alegría - 202011282
    9   
   10  Sets t 'Tile set' /t1*t20/
-  11       p 'Pipe Types' /p1*p7/;
+  11       p 'Pipes' /p1*p7/;
   12   
   13  Parameter hasPipe(t,p) 'Establishes if said tile has or not a pipe';
   14   
@@ -48,23 +48,25 @@ C o m p i l a t i o n
   45  Variables x(t) 'Node selected'
   46            z    'Target function';
   47   
-  48  Equations targetFunc  'Target Function'
-  49            minTiles(p) 'Pipe coverage constraint';
-  50   
-  51  targetFunc..  z =e= sum(t, x(t));
-  52  minTiles(p).. sum(t, x(t)*hasPipe(t,p)) =g= 1;
-  53   
-  54  Model exercise4 /all/;
-  55  option mip=cplex
-  56  Solve exercise4 using mip minimizing z;
-  57  Display x.l;
-  58  Display z.l;
+  48  Binary variable x;
+  49   
+  50  Equations targetFunc  'Target Function'
+  51            minTiles(p) 'Pipe coverage constraint';
+  52   
+  53  targetFunc..  z =e= sum(t, x(t));
+  54  minTiles(p).. sum(t, x(t)*hasPipe(t,p)) =g= 1;
+  55   
+  56  Model exercise4 /all/;
+  57  option mip=cplex
+  58  Solve exercise4 using mip minimizing z;
+  59  Display x.l;
+  60  Display z.l;
 
 
-COMPILATION TIME     =        0.004 SECONDS      3 MB  40.1.0 93c2a77b DEX-DEG
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:54:56 Page 2
+COMPILATION TIME     =        0.003 SECONDS      3 MB  40.1.0 93c2a77b DEX-DEG
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 21:17:00 Page 2
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Equation Listing    SOLVE exercise4 Using MIP From line 56
+Equation Listing    SOLVE exercise4 Using MIP From line 58
 
 
 ---- targetFunc  =E=  Target Function
@@ -82,25 +84,25 @@ minTiles(p3)..  x(t9) + x(t10) + x(t13) + x(t14) =G= 1 ; (LHS = 0, INFES = 1 ***
      
 REMAINING 4 ENTRIES SKIPPED
 
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:54:56 Page 3
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 21:17:00 Page 3
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Column Listing      SOLVE exercise4 Using MIP From line 56
+Column Listing      SOLVE exercise4 Using MIP From line 58
 
 
 ---- x  Node selected
 
 x(t1)
-                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+                (.LO, .L, .UP, .M = 0, 0, 1, 0)
        -1       targetFunc
         1       minTiles(p1)
 
 x(t2)
-                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+                (.LO, .L, .UP, .M = 0, 0, 1, 0)
        -1       targetFunc
         1       minTiles(p5)
 
 x(t3)
-                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+                (.LO, .L, .UP, .M = 0, 0, 1, 0)
        -1       targetFunc
         1       minTiles(p5)
 
@@ -112,47 +114,47 @@ z
                 (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
         1       targetFunc
 
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:54:56 Page 4
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 21:17:00 Page 4
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Range Statistics    SOLVE exercise4 Using MIP From line 56
+Range Statistics    SOLVE exercise4 Using MIP From line 58
 
 
 RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
 
 RHS       [min, max] : [ 1.000E+00, 1.000E+00] - Zero values observed as well
-Bound     [min, max] : [        NA,        NA]
+Bound     [min, max] : [ 1.000E+00, 1.000E+00] - Zero values observed as well
 Matrix    [min, max] : [ 1.000E+00, 1.000E+00]
 
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:54:56 Page 5
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 21:17:00 Page 5
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Model Statistics    SOLVE exercise4 Using MIP From line 56
+Model Statistics    SOLVE exercise4 Using MIP From line 58
 
 
 MODEL STATISTICS
 
 BLOCKS OF EQUATIONS           2     SINGLE EQUATIONS            8
 BLOCKS OF VARIABLES           2     SINGLE VARIABLES           21
-NON ZERO ELEMENTS            44
+NON ZERO ELEMENTS            44     DISCRETE VARIABLES         20
 
 
-GENERATION TIME      =        0.012 SECONDS      4 MB  40.1.0 93c2a77b DEX-DEG
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:54:56 Page 6
+GENERATION TIME      =        0.011 SECONDS      4 MB  40.1.0 93c2a77b DEX-DEG
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 21:17:00 Page 6
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Solution Report     SOLVE exercise4 Using MIP From line 56
+Solution Report     SOLVE exercise4 Using MIP From line 58
 
 
                S O L V E      S U M M A R Y
 
      MODEL   exercise4           OBJECTIVE  z
      TYPE    MIP                 DIRECTION  MINIMIZE
-     SOLVER  CPLEX               FROM LINE  56
+     SOLVER  CPLEX               FROM LINE  58
 
 **** SOLVER STATUS     1 Normal Completion
-**** MODEL STATUS      3 Unbounded
+**** MODEL STATUS      1 Optimal
 **** OBJECTIVE VALUE                5.0000
 
- RESOURCE USAGE, LIMIT          0.038 10000000000.000
- ITERATION COUNT, LIMIT         7    2147483647
+ RESOURCE USAGE, LIMIT          0.042 10000000000.000
+ ITERATION COUNT, LIMIT         0    2147483647
 --- *** This solver runs with a community license. No commercial use.
 --- GMO setup time: 0.00s
 --- GMO memory 0.50 Mb (peak 0.50 Mb)
@@ -161,18 +163,23 @@ Solution Report     SOLVE exercise4 Using MIP From line 56
 --- Starting Cplex
 
 
---- LP status (4): unbounded or infeasible.
---- Cplex Time: 0.00sec (det. 0.00 ticks)
+--- MIP status (101): integer optimal solution.
+--- Cplex Time: 0.01sec (det. 0.02 ticks)
 
-*** WARNING: Presolve found the problem infeasible or unbounded
---- Rerunning with presolve turned off and solving with LPMETHOD=1.
-
-
---- LP status (2): unbounded.
---- Cplex Time: 0.01sec (det. 0.01 ticks)
+--- Fixing integer variables and solving final LP...
 
 
-Model has an unbounded ray
+--- Fixed MIP status (1): optimal.
+--- Cplex Time: 0.00sec (det. 0.01 ticks)
+
+
+Proven optimal solution
+MIP Solution:            5.000000    (0 iterations, 0 nodes)
+Final Solve:             5.000000    (0 iterations)
+
+Best possible:           5.000000
+Absolute gap:            0.000000
+Relative gap:            0.000000
 
 
                            LOWER          LEVEL          UPPER         MARGINAL
@@ -185,38 +192,38 @@ Model has an unbounded ray
 
           LOWER          LEVEL          UPPER         MARGINAL
 
-p1         1.0000         1.0000        +INF            EPS         
-p2         1.0000         1.0000        +INF            1.0000      
-p3         1.0000         1.0000        +INF            EPS         
-p4         1.0000         1.0000        +INF            1.0000      
-p5         1.0000         1.0000        +INF            1.0000      
-p6         1.0000         1.0000        +INF            1.0000      
-p7         1.0000         1.0000        +INF            1.0000      
+p1         1.0000         1.0000        +INF             .          
+p2         1.0000         1.0000        +INF             .          
+p3         1.0000         2.0000        +INF             .          
+p4         1.0000         1.0000        +INF             .          
+p5         1.0000         1.0000        +INF             .          
+p6         1.0000         1.0000        +INF             .          
+p7         1.0000         1.0000        +INF             .          
 
 ---- VAR x  Node selected
 
            LOWER          LEVEL          UPPER         MARGINAL
 
-t1         -INF             .            +INF            1.0000 UNBND
-t2         -INF             .            +INF            EPS         
-t3         -INF            1.0000        +INF             .          
-t4         -INF             .            +INF            1.0000      
-t5         -INF            1.0000        +INF             .          
-t6         -INF             .            +INF            EPS         
-t7         -INF             .            +INF            EPS         
-t8         -INF            1.0000        +INF             .          
-t9         -INF             .            +INF             .          
-t10        -INF             .            +INF            EPS         
-t11        -INF            1.0000        +INF             .          
-t12        -INF             .            +INF            EPS         
-t13        -INF            1.0000        +INF             .          
-t14        -INF             .            +INF             .          
-t15        -INF             .            +INF            EPS         
-t16        -INF             .            +INF            EPS         
-t17        -INF             .            +INF            EPS         
-t18        -INF             .            +INF            1.0000      
-t19        -INF             .            +INF            EPS         
-t20        -INF             .            +INF            EPS         
+t1           .              .             1.0000         1.0000      
+t2           .              .             1.0000         1.0000      
+t3           .              .             1.0000         1.0000      
+t4           .              .             1.0000         1.0000      
+t5           .             1.0000         1.0000         1.0000      
+t6           .              .             1.0000         1.0000      
+t7           .             1.0000         1.0000         1.0000      
+t8           .              .             1.0000         1.0000      
+t9           .              .             1.0000         1.0000      
+t10          .             1.0000         1.0000         1.0000      
+t11          .              .             1.0000         1.0000      
+t12          .              .             1.0000         1.0000      
+t13          .             1.0000         1.0000         1.0000      
+t14          .              .             1.0000         1.0000      
+t15          .              .             1.0000         1.0000      
+t16          .              .             1.0000         1.0000      
+t17          .              .             1.0000         1.0000      
+t18          .              .             1.0000         1.0000      
+t19          .              .             1.0000         1.0000      
+t20          .             1.0000         1.0000         1.0000      
 
                            LOWER          LEVEL          UPPER         MARGINAL
 
@@ -227,21 +234,21 @@ t20        -INF             .            +INF            EPS
 
 **** REPORT SUMMARY :        0     NONOPT
                              0 INFEASIBLE
-                             1  UNBOUNDED (UNBND)
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:54:56 Page 7
+                             0  UNBOUNDED
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 21:17:00 Page 7
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 E x e c u t i o n
 
 
-----     57 VARIABLE x.L  Node selected
+----     59 VARIABLE x.L  Node selected
 
-t3  1.000,    t5  1.000,    t8  1.000,    t11 1.000,    t13 1.000
-
-
-----     58 VARIABLE z.L                   =        5.000  Target function
+t5  1.000,    t7  1.000,    t10 1.000,    t13 1.000,    t20 1.000
 
 
-EXECUTION TIME       =        0.085 SECONDS      4 MB  40.1.0 93c2a77b DEX-DEG
+----     60 VARIABLE z.L                   =        5.000  Target function
+
+
+EXECUTION TIME       =        0.086 SECONDS      4 MB  40.1.0 93c2a77b DEX-DEG
 
 
 USER: GAMS Community License for Juan Alegria        G220811|0002AO-GEN

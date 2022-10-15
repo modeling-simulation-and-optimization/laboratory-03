@@ -45,6 +45,8 @@ hasPipe('t19', 'p7') = 1;
 Variables x(t) 'Node selected'
           z    'Target function';
           
+Binary variable x;
+          
 Equations targetFunc  'Target Function'
           minTiles(p) 'Pipe coverage constraint';
 
