@@ -1,4 +1,4 @@
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:19:06 Page 1
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:54:56 Page 1
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 C o m p i l a t i o n
 
@@ -61,8 +61,8 @@ C o m p i l a t i o n
   58  Display z.l;
 
 
-COMPILATION TIME     =        0.002 SECONDS      3 MB  40.1.0 93c2a77b DEX-DEG
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:19:06 Page 2
+COMPILATION TIME     =        0.004 SECONDS      3 MB  40.1.0 93c2a77b DEX-DEG
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:54:56 Page 2
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Equation Listing    SOLVE exercise4 Using MIP From line 56
 
@@ -82,7 +82,7 @@ minTiles(p3)..  x(t9) + x(t10) + x(t13) + x(t14) =G= 1 ; (LHS = 0, INFES = 1 ***
      
 REMAINING 4 ENTRIES SKIPPED
 
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:19:06 Page 3
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:54:56 Page 3
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Column Listing      SOLVE exercise4 Using MIP From line 56
 
@@ -112,7 +112,7 @@ z
                 (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
         1       targetFunc
 
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:19:06 Page 4
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:54:56 Page 4
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Range Statistics    SOLVE exercise4 Using MIP From line 56
 
@@ -123,7 +123,7 @@ RHS       [min, max] : [ 1.000E+00, 1.000E+00] - Zero values observed as well
 Bound     [min, max] : [        NA,        NA]
 Matrix    [min, max] : [ 1.000E+00, 1.000E+00]
 
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:19:06 Page 5
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:54:56 Page 5
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Model Statistics    SOLVE exercise4 Using MIP From line 56
 
@@ -135,8 +135,8 @@ BLOCKS OF VARIABLES           2     SINGLE VARIABLES           21
 NON ZERO ELEMENTS            44
 
 
-GENERATION TIME      =        0.005 SECONDS      4 MB  40.1.0 93c2a77b DEX-DEG
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:19:06 Page 6
+GENERATION TIME      =        0.012 SECONDS      4 MB  40.1.0 93c2a77b DEX-DEG
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:54:56 Page 6
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Solution Report     SOLVE exercise4 Using MIP From line 56
 
@@ -151,7 +151,7 @@ Solution Report     SOLVE exercise4 Using MIP From line 56
 **** MODEL STATUS      3 Unbounded
 **** OBJECTIVE VALUE                5.0000
 
- RESOURCE USAGE, LIMIT          0.014 10000000000.000
+ RESOURCE USAGE, LIMIT          0.038 10000000000.000
  ITERATION COUNT, LIMIT         7    2147483647
 --- *** This solver runs with a community license. No commercial use.
 --- GMO setup time: 0.00s
@@ -169,7 +169,7 @@ Solution Report     SOLVE exercise4 Using MIP From line 56
 
 
 --- LP status (2): unbounded.
---- Cplex Time: 0.00sec (det. 0.01 ticks)
+--- Cplex Time: 0.01sec (det. 0.01 ticks)
 
 
 Model has an unbounded ray
@@ -228,7 +228,7 @@ t20        -INF             .            +INF            EPS
 **** REPORT SUMMARY :        0     NONOPT
                              0 INFEASIBLE
                              1  UNBOUNDED (UNBND)
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:19:06 Page 7
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:54:56 Page 7
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 E x e c u t i o n
 
@@ -241,7 +241,7 @@ t3  1.000,    t5  1.000,    t8  1.000,    t11 1.000,    t13 1.000
 ----     58 VARIABLE z.L                   =        5.000  Target function
 
 
-EXECUTION TIME       =        0.046 SECONDS      4 MB  40.1.0 93c2a77b DEX-DEG
+EXECUTION TIME       =        0.085 SECONDS      4 MB  40.1.0 93c2a77b DEX-DEG
 
 
 USER: GAMS Community License for Juan Alegria        G220811|0002AO-GEN

@@ -1,4 +1,4 @@
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:19:09 Page 1
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:48:00 Page 1
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 C o m p i l a t i o n
 
@@ -34,38 +34,40 @@ C o m p i l a t i o n
   31                   b;
   32   
   33  Equations targetFunc
-  34            minDurationAMax
-  35            minDurationAMin
-  36            minDurationBMax
-  37            minDurationBMin
+  34            minDurationA
+  35            maxDurationA
+  36            minDurationB
+  37            maxDurationB
   38            minBluesA
   39            minBluesB
   40            minRockNRoll
   41            conditionalX
-  42            conditionalY;
-  43   
-  44  targetFunc..      z =e= sum(i, a(i)+b(i));
-  45  minDurationAMax.. sum(i, a(i)*duration(i)) =g= 14;
-  46  minDurationAMin.. sum(i, a(i)*duration(i)) =l= 16;
-  47  minDurationBMax.. sum(i, b(i)*duration(i)) =g= 14;
-  48  minDurationBMin.. sum(i, b(i)*duration(i)) =l= 14;
-  49  minBluesA..       sum(i, a(i)*songGenres(i,'BluesRock')) =e= 2;
-  50  minBluesB..       sum(i, b(i)*songGenres(i,'BluesRock')) =e= 2;
-  51  minRockNRoll..    sum(i, a(i)*songGenres(i,'RockAndRoll')) =g= 3;
-  52  conditionalX..    1-a('i1') =g= a('i5');
-  53  conditionalY..    a('i2') + a('i4') =l= b('i1')+1;
-  54   
-  55  Model exercise3 /all/;
-  56  option mip=cplex
-  57  Solve exercise3 using mip minimizing z;
-  58  Display a.l;
-  59  Display b.l;
+  42            conditionalY
+  43            organization;
+  44   
+  45  targetFunc..      z =e= sum(i, a(i)+b(i));
+  46  minDurationA..    sum(i, a(i)*duration(i)) =g= 14;
+  47  maxDurationA..    sum(i, a(i)*duration(i)) =l= 16;
+  48  minDurationB..    sum(i, b(i)*duration(i)) =g= 14;
+  49  maxDurationB..    sum(i, b(i)*duration(i)) =l= 16;
+  50  minBluesA..       sum(i, a(i)*songGenres(i,'BluesRock')) =e= 2;
+  51  minBluesB..       sum(i, b(i)*songGenres(i,'BluesRock')) =e= 2;
+  52  minRockNRoll..    sum(i, a(i)*songGenres(i,'RockAndRoll')) =g= 3;
+  53  conditionalX..    1-a('i1') =g= a('i5');
+  54  conditionalY..    a('i2') + a('i4') =l= b('i1')+1;
+  55  organization(i).. 1-a(i) =g= b(i);
+  56   
+  57  Model exercise3 /all/;
+  58  option mip=cplex
+  59  Solve exercise3 using mip minimizing z;
+  60  Display a.l;
+  61  Display b.l;
 
 
-COMPILATION TIME     =        0.003 SECONDS      3 MB  40.1.0 93c2a77b DEX-DEG
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:19:09 Page 2
+COMPILATION TIME     =        0.004 SECONDS      3 MB  40.1.0 93c2a77b DEX-DEG
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:48:00 Page 2
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Equation Listing    SOLVE exercise3 Using MIP From line 57
+Equation Listing    SOLVE exercise3 Using MIP From line 59
 
 
 ---- targetFunc  =E=  
@@ -73,24 +75,24 @@ Equation Listing    SOLVE exercise3 Using MIP From line 57
 targetFunc..  - a(i1) - a(i2) - a(i3) - a(i4) - a(i5) - a(i6) - a(i7) - a(i8) - b(i1) - b(i2) - b(i3) - b(i4) - b(i5) - b(i6) - b(i7) - b(i8) + z =E= 0 ; (LHS = 0)
      
 
----- minDurationAMax  =G=  
+---- minDurationA  =G=  
 
-minDurationAMax..  4*a(i1) + 5*a(i2) + 3*a(i3) + 2*a(i4) + 4*a(i5) + 3*a(i6) + 5*a(i7) + 4*a(i8) =G= 14 ; (LHS = 0, INFES = 14 ****)
+minDurationA..  4*a(i1) + 5*a(i2) + 3*a(i3) + 2*a(i4) + 4*a(i5) + 3*a(i6) + 5*a(i7) + 4*a(i8) =G= 14 ; (LHS = 0, INFES = 14 ****)
      
 
----- minDurationAMin  =L=  
+---- maxDurationA  =L=  
 
-minDurationAMin..  4*a(i1) + 5*a(i2) + 3*a(i3) + 2*a(i4) + 4*a(i5) + 3*a(i6) + 5*a(i7) + 4*a(i8) =L= 16 ; (LHS = 0)
+maxDurationA..  4*a(i1) + 5*a(i2) + 3*a(i3) + 2*a(i4) + 4*a(i5) + 3*a(i6) + 5*a(i7) + 4*a(i8) =L= 16 ; (LHS = 0)
      
 
----- minDurationBMax  =G=  
+---- minDurationB  =G=  
 
-minDurationBMax..  4*b(i1) + 5*b(i2) + 3*b(i3) + 2*b(i4) + 4*b(i5) + 3*b(i6) + 5*b(i7) + 4*b(i8) =G= 14 ; (LHS = 0, INFES = 14 ****)
+minDurationB..  4*b(i1) + 5*b(i2) + 3*b(i3) + 2*b(i4) + 4*b(i5) + 3*b(i6) + 5*b(i7) + 4*b(i8) =G= 14 ; (LHS = 0, INFES = 14 ****)
      
 
----- minDurationBMin  =L=  
+---- maxDurationB  =L=  
 
-minDurationBMin..  4*b(i1) + 5*b(i2) + 3*b(i3) + 2*b(i4) + 4*b(i5) + 3*b(i6) + 5*b(i7) + 4*b(i8) =L= 14 ; (LHS = 0)
+maxDurationB..  4*b(i1) + 5*b(i2) + 3*b(i3) + 2*b(i4) + 4*b(i5) + 3*b(i6) + 5*b(i7) + 4*b(i8) =L= 16 ; (LHS = 0)
      
 
 ---- minBluesA  =E=  
@@ -117,9 +119,20 @@ conditionalX..  - a(i1) - a(i5) =G= -1 ; (LHS = 0)
 
 conditionalY..  a(i2) + a(i4) - b(i1) =L= 1 ; (LHS = 0)
      
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:19:09 Page 3
+
+---- organization  =G=  
+
+organization(i1)..  - a(i1) - b(i1) =G= -1 ; (LHS = 0)
+     
+organization(i2)..  - a(i2) - b(i2) =G= -1 ; (LHS = 0)
+     
+organization(i3)..  - a(i3) - b(i3) =G= -1 ; (LHS = 0)
+     
+REMAINING 5 ENTRIES SKIPPED
+
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:48:00 Page 3
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Column Listing      SOLVE exercise3 Using MIP From line 57
+Column Listing      SOLVE exercise3 Using MIP From line 59
 
 
 ---- a  Song selected (Side A)
@@ -127,25 +140,28 @@ Column Listing      SOLVE exercise3 Using MIP From line 57
 a(i1)
                 (.LO, .L, .UP, .M = 0, 0, 1, 0)
        -1       targetFunc
-        4       minDurationAMax
-        4       minDurationAMin
+        4       minDurationA
+        4       maxDurationA
         1       minBluesA
        -1       conditionalX
+       -1       organization(i1)
 
 a(i2)
                 (.LO, .L, .UP, .M = 0, 0, 1, 0)
        -1       targetFunc
-        5       minDurationAMax
-        5       minDurationAMin
+        5       minDurationA
+        5       maxDurationA
         1       minRockNRoll
         1       conditionalY
+       -1       organization(i2)
 
 a(i3)
                 (.LO, .L, .UP, .M = 0, 0, 1, 0)
        -1       targetFunc
-        3       minDurationAMax
-        3       minDurationAMin
+        3       minDurationA
+        3       maxDurationA
         1       minBluesA
+       -1       organization(i3)
 
 REMAINING 5 ENTRIES SKIPPED
 
@@ -154,23 +170,26 @@ REMAINING 5 ENTRIES SKIPPED
 b(i1)
                 (.LO, .L, .UP, .M = 0, 0, 1, 0)
        -1       targetFunc
-        4       minDurationBMax
-        4       minDurationBMin
+        4       minDurationB
+        4       maxDurationB
         1       minBluesB
        -1       conditionalY
+       -1       organization(i1)
 
 b(i2)
                 (.LO, .L, .UP, .M = 0, 0, 1, 0)
        -1       targetFunc
-        5       minDurationBMax
-        5       minDurationBMin
+        5       minDurationB
+        5       maxDurationB
+       -1       organization(i2)
 
 b(i3)
                 (.LO, .L, .UP, .M = 0, 0, 1, 0)
        -1       targetFunc
-        3       minDurationBMax
-        3       minDurationBMin
+        3       minDurationB
+        3       maxDurationB
         1       minBluesB
+       -1       organization(i3)
 
 REMAINING 5 ENTRIES SKIPPED
 
@@ -180,9 +199,9 @@ z
                 (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
         1       targetFunc
 
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:19:09 Page 4
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:48:00 Page 4
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Range Statistics    SOLVE exercise3 Using MIP From line 57
+Range Statistics    SOLVE exercise3 Using MIP From line 59
 
 
 RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
@@ -191,35 +210,35 @@ RHS       [min, max] : [ 1.000E+00, 1.600E+01] - Zero values observed as well
 Bound     [min, max] : [ 1.000E+00, 1.000E+00] - Zero values observed as well
 Matrix    [min, max] : [ 1.000E+00, 5.000E+00]
 
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:19:09 Page 5
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:48:00 Page 5
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Model Statistics    SOLVE exercise3 Using MIP From line 57
+Model Statistics    SOLVE exercise3 Using MIP From line 59
 
 
 MODEL STATISTICS
 
-BLOCKS OF EQUATIONS          10     SINGLE EQUATIONS           10
+BLOCKS OF EQUATIONS          11     SINGLE EQUATIONS           18
 BLOCKS OF VARIABLES           3     SINGLE VARIABLES           17
-NON ZERO ELEMENTS            66     DISCRETE VARIABLES         16
+NON ZERO ELEMENTS            82     DISCRETE VARIABLES         16
 
 
-GENERATION TIME      =        0.005 SECONDS      4 MB  40.1.0 93c2a77b DEX-DEG
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:19:09 Page 6
+GENERATION TIME      =        0.011 SECONDS      4 MB  40.1.0 93c2a77b DEX-DEG
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:48:00 Page 6
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
-Solution Report     SOLVE exercise3 Using MIP From line 57
+Solution Report     SOLVE exercise3 Using MIP From line 59
 
 
                S O L V E      S U M M A R Y
 
      MODEL   exercise3           OBJECTIVE  z
      TYPE    MIP                 DIRECTION  MINIMIZE
-     SOLVER  CPLEX               FROM LINE  57
+     SOLVER  CPLEX               FROM LINE  59
 
 **** SOLVER STATUS     1 Normal Completion
 **** MODEL STATUS      1 Optimal
 **** OBJECTIVE VALUE                8.0000
 
- RESOURCE USAGE, LIMIT          0.012 10000000000.000
+ RESOURCE USAGE, LIMIT          0.043 10000000000.000
  ITERATION COUNT, LIMIT         0    2147483647
 --- *** This solver runs with a community license. No commercial use.
 --- GMO setup time: 0.00s
@@ -230,7 +249,7 @@ Solution Report     SOLVE exercise3 Using MIP From line 57
 
 
 --- MIP status (101): integer optimal solution.
---- Cplex Time: 0.00sec (det. 0.05 ticks)
+--- Cplex Time: 0.01sec (det. 0.08 ticks)
 
 --- Fixing integer variables and solving final LP...
 
@@ -251,23 +270,36 @@ Relative gap:            0.000000
                            LOWER          LEVEL          UPPER         MARGINAL
 
 ---- EQU targetFunc          .              .              .             1.0000      
----- EQU minDurati~        14.0000        15.0000        +INF             .          
----- EQU minDurati~        -INF           15.0000        16.0000          .          
+---- EQU minDurati~        14.0000        16.0000        +INF             .          
+---- EQU maxDurati~        -INF           16.0000        16.0000          .          
 ---- EQU minDurati~        14.0000        14.0000        +INF             .          
----- EQU minDurati~        -INF           14.0000        14.0000          .          
+---- EQU maxDurati~        -INF           14.0000        16.0000          .          
 ---- EQU minBluesA          2.0000         2.0000         2.0000          .          
 ---- EQU minBluesB          2.0000         2.0000         2.0000          .          
 ---- EQU minRockNR~         3.0000         3.0000        +INF             .          
----- EQU condition~        -1.0000          .            +INF             .          
----- EQU condition~        -INF             .             1.0000          .          
+---- EQU condition~        -1.0000        -1.0000        +INF             .          
+---- EQU condition~        -INF            1.0000         1.0000          .          
+
+---- EQU organization  
+
+          LOWER          LEVEL          UPPER         MARGINAL
+
+i1        -1.0000        -1.0000        +INF             .          
+i2        -1.0000        -1.0000        +INF             .          
+i3        -1.0000        -1.0000        +INF             .          
+i4        -1.0000        -1.0000        +INF             .          
+i5        -1.0000        -1.0000        +INF             .          
+i6        -1.0000        -1.0000        +INF             .          
+i7        -1.0000        -1.0000        +INF             .          
+i8        -1.0000        -1.0000        +INF             .          
 
 ---- VAR a  Song selected (Side A)
 
           LOWER          LEVEL          UPPER         MARGINAL
 
-i1          .              .             1.0000         1.0000      
+i1          .             1.0000         1.0000         1.0000      
 i2          .             1.0000         1.0000         1.0000      
-i3          .             1.0000         1.0000         1.0000      
+i3          .              .             1.0000         1.0000      
 i4          .              .             1.0000         1.0000      
 i5          .              .             1.0000         1.0000      
 i6          .             1.0000         1.0000         1.0000      
@@ -278,13 +310,13 @@ i8          .             1.0000         1.0000         1.0000
 
           LOWER          LEVEL          UPPER         MARGINAL
 
-i1          .             1.0000         1.0000         1.0000      
-i2          .             1.0000         1.0000         1.0000      
+i1          .              .             1.0000         1.0000      
+i2          .              .             1.0000         1.0000      
 i3          .             1.0000         1.0000         1.0000      
 i4          .             1.0000         1.0000         1.0000      
-i5          .              .             1.0000         1.0000      
+i5          .             1.0000         1.0000         1.0000      
 i6          .              .             1.0000         1.0000      
-i7          .              .             1.0000         1.0000      
+i7          .             1.0000         1.0000         1.0000      
 i8          .              .             1.0000         1.0000      
 
                            LOWER          LEVEL          UPPER         MARGINAL
@@ -297,23 +329,23 @@ i8          .              .             1.0000         1.0000
 **** REPORT SUMMARY :        0     NONOPT
                              0 INFEASIBLE
                              0  UNBOUNDED
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:19:09 Page 7
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:48:00 Page 7
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 E x e c u t i o n
 
 
-----     58 VARIABLE a.L  Song selected (Side A)
+----     60 VARIABLE a.L  Song selected (Side A)
 
-i2 1.000,    i3 1.000,    i6 1.000,    i8 1.000
-
-
-----     59 VARIABLE b.L  Song selected (Side B)
-
-i1 1.000,    i2 1.000,    i3 1.000,    i4 1.000
+i1 1.000,    i2 1.000,    i6 1.000,    i8 1.000
 
 
+----     61 VARIABLE b.L  Song selected (Side B)
 
-EXECUTION TIME       =        0.042 SECONDS      4 MB  40.1.0 93c2a77b DEX-DEG
+i3 1.000,    i4 1.000,    i5 1.000,    i7 1.000
+
+
+
+EXECUTION TIME       =        0.087 SECONDS      4 MB  40.1.0 93c2a77b DEX-DEG
 
 
 USER: GAMS Community License for Juan Alegria        G220811|0002AO-GEN

@@ -31,26 +31,28 @@ Binary Variables a
                  b;
 
 Equations targetFunc
-          minDurationAMax
-          minDurationAMin
-          minDurationBMax
-          minDurationBMin
+          minDurationA
+          maxDurationA
+          minDurationB
+          maxDurationB
           minBluesA
           minBluesB
           minRockNRoll
           conditionalX
-          conditionalY;
+          conditionalY
+          organization;
           
 targetFunc..      z =e= sum(i, a(i)+b(i));
-minDurationAMax.. sum(i, a(i)*duration(i)) =g= 14;
-minDurationAMin.. sum(i, a(i)*duration(i)) =l= 16;
-minDurationBMax.. sum(i, b(i)*duration(i)) =g= 14;
-minDurationBMin.. sum(i, b(i)*duration(i)) =l= 14;
+minDurationA..    sum(i, a(i)*duration(i)) =g= 14;
+maxDurationA..    sum(i, a(i)*duration(i)) =l= 16;
+minDurationB..    sum(i, b(i)*duration(i)) =g= 14;
+maxDurationB..    sum(i, b(i)*duration(i)) =l= 16;
 minBluesA..       sum(i, a(i)*songGenres(i,'BluesRock')) =e= 2;
 minBluesB..       sum(i, b(i)*songGenres(i,'BluesRock')) =e= 2;
 minRockNRoll..    sum(i, a(i)*songGenres(i,'RockAndRoll')) =g= 3;
 conditionalX..    1-a('i1') =g= a('i5');
 conditionalY..    a('i2') + a('i4') =l= b('i1')+1;
+organization(i).. 1-a(i) =g= b(i);
 
 Model exercise3 /all/;
 option mip=cplex

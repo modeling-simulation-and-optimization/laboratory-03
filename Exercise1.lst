@@ -1,4 +1,4 @@
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:18:36 Page 1
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:25:26 Page 1
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 C o m p i l a t i o n
 
@@ -71,8 +71,8 @@ C o m p i l a t i o n
   68  Display x.l, z.l;
 
 
-COMPILATION TIME     =        0.002 SECONDS      3 MB  40.1.0 93c2a77b DEX-DEG
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:18:36 Page 2
+COMPILATION TIME     =        0.004 SECONDS      3 MB  40.1.0 93c2a77b DEX-DEG
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:25:26 Page 2
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Equation Listing    SOLVE exercise1 Using MIP From line 67
 
@@ -121,7 +121,7 @@ reboundsConstraint..  0.2*x(i1) + 0.6*x(i2) + 0.4*x(i3) + 0.6*x(i4) + 0.6*x(i5) 
 
 player2or3..  x(i2) + x(i3) =E= 1 ; (LHS = 0, INFES = 1 ****)
      
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:18:36 Page 3
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:25:26 Page 3
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Column Listing      SOLVE exercise1 Using MIP From line 67
 
@@ -166,7 +166,7 @@ z
                 (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
         1       targetFunc
 
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:18:36 Page 4
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:25:26 Page 4
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Range Statistics    SOLVE exercise1 Using MIP From line 67
 
@@ -177,7 +177,7 @@ RHS       [min, max] : [ 1.000E+00, 5.000E+00] - Zero values observed as well
 Bound     [min, max] : [ 1.000E+00, 1.000E+00] - Zero values observed as well
 Matrix    [min, max] : [ 2.000E-01, 3.000E+00]
 
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:18:36 Page 5
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:25:26 Page 5
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Model Statistics    SOLVE exercise1 Using MIP From line 67
 
@@ -189,8 +189,8 @@ BLOCKS OF VARIABLES           2     SINGLE VARIABLES            8
 NON ZERO ELEMENTS            50     DISCRETE VARIABLES          7
 
 
-GENERATION TIME      =        0.006 SECONDS      4 MB  40.1.0 93c2a77b DEX-DEG
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:18:36 Page 6
+GENERATION TIME      =        0.013 SECONDS      4 MB  40.1.0 93c2a77b DEX-DEG
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:25:26 Page 6
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Solution Report     SOLVE exercise1 Using MIP From line 67
 
@@ -205,7 +205,7 @@ Solution Report     SOLVE exercise1 Using MIP From line 67
 **** MODEL STATUS      1 Optimal
 **** OBJECTIVE VALUE               12.0000
 
- RESOURCE USAGE, LIMIT          0.013 10000000000.000
+ RESOURCE USAGE, LIMIT          0.065 10000000000.000
  ITERATION COUNT, LIMIT         0    2147483647
 --- *** This solver runs with a community license. No commercial use.
 --- GMO setup time: 0.00s
@@ -216,7 +216,7 @@ Solution Report     SOLVE exercise1 Using MIP From line 67
 
 
 --- MIP status (101): integer optimal solution.
---- Cplex Time: 0.00sec (det. 0.03 ticks)
+--- Cplex Time: 0.01sec (det. 0.03 ticks)
 
 --- Fixing integer variables and solving final LP...
 
@@ -278,7 +278,7 @@ i7          .              .             1.0000         1.0000
 **** REPORT SUMMARY :        0     NONOPT
                              0 INFEASIBLE
                              0  UNBOUNDED
-GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 19:18:36 Page 7
+GAMS 40.1.0  93c2a77b Aug 1, 2022           DEX-DEG x86 64bit/Mac OS X - 10/14/22 20:25:26 Page 7
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 E x e c u t i o n
 
@@ -291,7 +291,7 @@ i1 1.000,    i3 1.000,    i4 1.000,    i5 1.000,    i6 1.000
 ----     68 VARIABLE z.L                   =       12.000  Objective function
 
 
-EXECUTION TIME       =        0.049 SECONDS      4 MB  40.1.0 93c2a77b DEX-DEG
+EXECUTION TIME       =        0.112 SECONDS      4 MB  40.1.0 93c2a77b DEX-DEG
 
 
 USER: GAMS Community License for Juan Alegria        G220811|0002AO-GEN

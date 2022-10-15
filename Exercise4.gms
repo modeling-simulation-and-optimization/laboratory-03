@@ -8,7 +8,7 @@ Juan Sebastián Alegría - 202011282
 $offText
 
 Sets t 'Tile set' /t1*t20/
-     p 'Pipe Types' /p1*p7/;
+     p 'Pipes' /p1*p7/;
      
 Parameter hasPipe(t,p) 'Establishes if said tile has or not a pipe';
 

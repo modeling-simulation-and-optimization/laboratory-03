@@ -64,7 +64,7 @@ Equations targetFunc  'Target Function'
           minZones(i) 'Fire department coverage constraint';
 
 targetFunc..  z =e= sum(i, x(i));
-minZones(i).. sum(j, x(j)*distance(i,j)) =g=1;
+minZones(i).. sum(j, x(j)*distance(i,j)) =g= 1;
 
 Model exercise2 /all/;
 option mip=cplex
